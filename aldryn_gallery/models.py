@@ -79,7 +79,7 @@ class SlidePlugin(CMSPlugin):
     )
 
     cmsplugin_ptr = CMSPluginField()
-    image = FilerImageField(verbose_name=_('image'), blank=True, null=True)
+    image = FilerImageField(verbose_name=_('image'), blank=True, null=True, on_delete=models.PROTECT,)
     content = HTMLField("Content", blank=True, null=True)
     url = models.URLField(_("Link"), blank=True, null=True)
     page_link = PageField(
@@ -139,7 +139,7 @@ class SlidePlugin(CMSPlugin):
 
 class SlideFolderPlugin(CMSPlugin):
     cmsplugin_ptr = CMSPluginField()
-    folder = FilerFolderField(verbose_name=_('folder'))
+    folder = FilerFolderField(verbose_name=_('folder'), on_delete=models.PROTECT,)
 
     def copy_relations(self, oldinstance):
         self.folder_id = oldinstance.folder_id
