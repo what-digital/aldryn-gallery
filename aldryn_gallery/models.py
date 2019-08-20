@@ -23,6 +23,7 @@ if compat.LTE_DJANGO_1_6:
         to=CMSPlugin,
         related_name='+',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 else:
     # Once djangoCMS < 3.3.1 support is dropped
@@ -32,6 +33,7 @@ else:
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
 
@@ -79,7 +81,7 @@ class SlidePlugin(CMSPlugin):
     )
 
     cmsplugin_ptr = CMSPluginField()
-    image = FilerImageField(verbose_name=_('image'), blank=True, null=True)
+    image = FilerImageField(verbose_name=_('image'), blank=True, null=True, on_delete=models.CASCADE,)
     content = HTMLField("Content", blank=True, null=True)
     url = models.URLField(_("Link"), blank=True, null=True)
     page_link = PageField(
@@ -139,7 +141,7 @@ class SlidePlugin(CMSPlugin):
 
 class SlideFolderPlugin(CMSPlugin):
     cmsplugin_ptr = CMSPluginField()
-    folder = FilerFolderField(verbose_name=_('folder'))
+    folder = FilerFolderField(verbose_name=_('folder'), on_delete=models.CASCADE,)
 
     def copy_relations(self, oldinstance):
         self.folder_id = oldinstance.folder_id
